@@ -1,0 +1,23 @@
+{
+  "name": "tensorschool",
+  "version": "1.0.0",
+  "description": "Tensor School - Lesson 0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mda1997/TensorSchool.git"
+  },
+  "author": "Murad Davydov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mda1997/TensorSchool/issues"
+  },
+  "homepage": "https://github.com/mda1997/TensorSchool#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
+}
