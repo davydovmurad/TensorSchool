@@ -1,0 +1,85 @@
+@media screen and (max-width: 1440px) {
+    .aside {
+        width: 230px;
+    }
+
+    .aside__title,
+    .aside__navbar-item {
+        font-size: 16px;
+    }
+
+    .courses-list__item {
+        width: 230px;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .aside {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        padding: 0 16px;
+    }
+
+    .header__title {
+        font-size: 18px;
+    }
+
+    .header__item {
+        width: 30px;
+        height: 30px;
+    }
+
+    .courses-list__item {
+        width: 48%;
+    }
+
+    .courses-list__item-image {
+        height: 160px;
+    }
+}
+
+@media screen and (max-width: 520px) {
+    .content {
+        padding: 24px 0;
+    }
+
+    .header__title {
+        text-align: center;
+        font-size: 18px;
+    }
+
+    .header__items {
+        display: none;
+    }
+
+    .courses-list {
+        justify-content: center;
+    }
+
+    .courses-list__item {
+        width: 75%;
+    }
+
+    .courses-list__item-image {
+        height: 160px;
+    }
+    
+    .content__show-more-courses {
+        width: 180px;
+        height: 40px;
+    }
+
+    .footer {
+        flex-direction: column;
+        justify-content: center;
+        padding: 16px 0;
+    }
+
+    .footer__company-name {
+        margin-bottom: 10px;
+    }
+}
