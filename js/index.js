@@ -114,11 +114,11 @@ class School {
     }
 
     getStudent(fullName) {
-        this.studentsList.find(student => student.fullName === fullName)
+        this.studentsList.find(student => student.fullName === fullName);
     }
 
     removeStudent(fullName) {
-        this.studentsList.filter(student => student.fullName !== fullName)
+        this.studentsList.filter(student => student.fullName !== fullName);
     }
 }
 
