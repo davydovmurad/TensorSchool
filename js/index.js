@@ -20,6 +20,38 @@ class Person {
         this.university = params.university;
         this.photoUrl = params.photoUrl;
     }
+
+    get birthDateStr() {
+        return `${this.birthDate.getDate()} ${month[this.birthDate.getMonth()]}, 
+                ${Math.round((Date.now() - this.birthDate) / (1000 * 3600 * 24 * 365))} лет`;
+    }
+
+    render() {
+        return `
+            <div class="member">
+                <img class="member__img" src="${this.photoUrl}" alt="${this.fullName}" title="${this.fullName}">
+                <p class="member__fullname">${this.fullName}</p>
+                <span>${this.university}</span>
+                <div class="member__info">
+                    <div class="member__info-close">
+                        <button class="member__info-close-btn">x</button>
+                    </div>
+                    <div class="member__info-text">
+                        <p class="member__info-name">${this.fullName}</p>
+                        <p class="member__info-birthdate">
+                            <span class="member__info-subtext">День рождения</span>
+                            ${this.birthDateStr}
+                        </p>
+                    </div>
+                    <img class="member__info-img" src="${this.photoUrl}" alt="${this.fullName}" title="${this.fullName}">
+                </div>
+            </div>
+        `;
+    }
+
+    appendToDOM() {
+        document.querySelector('#members').insertAdjacentHTML('beforeend', this.render());
+    }
 }
 
 class Teacher extends Person {
@@ -34,11 +66,6 @@ class Student extends Person {
         super(params);
         this.type = 'student';
         this.course = params.course;
-    }
-
-    get birthDateStr() {
-        return `${this.birthDate.getDate()} ${month[this.birthDate.getMonth()]}, 
-                ${Math.round((Date.now() - this.birthDate) / (1000 * 3600 * 24 * 365))} лет`;
     }
 
     render() {
@@ -66,10 +93,6 @@ class Student extends Person {
                 </div>
             </div>
         `;
-    }
-
-    appendToDOM() {
-        document.querySelector('#members').insertAdjacentHTML('beforeend', this.render());
     }
 }
 
@@ -101,24 +124,21 @@ class PersonFactory {
 class School {
     constructor(name) {
         this.name = name;
-        this.studentsList = [];
-        this.teachersList = [];
+        this.membersList = [];
     }
 
-    addStudent(student) {
-        this.studentsList.push(student);
-    }
-
-    addTeacher(teacher) {
-        this.teachersList.push(teacher);
+    addMember(student) {
+        this.membersList.push(student);
     }
 
     getStudent(fullName) {
-        this.studentsList.find(student => student.fullName === fullName);
+        return this.membersList.find(member => member.fullName === fullName && member.type === 'student');
     }
 
     removeStudent(fullName) {
-        this.studentsList.filter(student => student.fullName !== fullName);
+        if (this.getStudent(fullName)) {
+            this.membersList = this.membersList.filter(member => member.fullName !== fullName);
+        }
     }
 }
 
@@ -140,7 +160,7 @@ function closeCard(e) {
 const personFactory = new PersonFactory();
 const school = new School('Школа №1')
 
-const studentsList = [
+const membersList = [
     personFactory.create(
         {
             fullName: 'Миша Иванов',
@@ -171,35 +191,32 @@ const studentsList = [
     personFactory.create(
         {
             fullName: 'Иван Свиридов',
-            birthDate: new Date(1995, 5, 26),
+            birthDate: new Date(1984, 5, 26),
             university: 'БФУ',
-            course: 4,
             photoUrl: './img/ava04.jpg'
-        }, 'student'
+        }, 'teacher'
     ),
     personFactory.create(
         {
             fullName: 'Екатерина Сидорова',
-            birthDate: new Date(1995, 7, 20),
+            birthDate: new Date(1985, 7, 20),
             university: 'КГТУ',
-            course: 4,
             photoUrl: './img/ava05.jpg'
-        }, 'student'
+        }, 'teacher'
     ),
     personFactory.create(
         {
             fullName: 'Виктор Петров',
-            birthDate: new Date(2000, 6, 6),
-            university: 'УГАТУ',
-            course: 1,
+            birthDate: new Date(1960, 6, 6),
+            university: 'БФУ',
             photoUrl: './img/ava06.jpg'
-        }, 'student'
+        }, 'teacher'
     )
 ]
 
-studentsList.forEach((item) => {
+membersList.forEach((item) => {
     item.appendToDOM();
-    school.addStudent(item);
+    school.addMember(item);
 });
 
 document.querySelector('#members').addEventListener('click', (e) => {
